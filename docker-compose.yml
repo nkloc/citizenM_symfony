@@ -1,5 +1,10 @@
 version: '3.8'
 
+x-cache-from:
+  - &app-cache-from
+    cache_from:
+      - php:8.0-fpm
+
 services:
   db:
     image: postgres:13-alpine
@@ -16,8 +21,10 @@ services:
         protocol: tcp
 
   php:
+    image: php:8.0-fpm
     build:
       context: ./docker/php-fpm
+      <<: *app-cache-from
     depends_on:
       - db
     environment:
@@ -31,6 +38,7 @@ services:
       start_period: 30s
     volumes:
       - ./:/var/www
+      - app-cache:/var/www/var
 
   nginx:
     build:
@@ -49,3 +57,4 @@ services:
 
 volumes:
   db-data: {}
+  app-cache: {}
