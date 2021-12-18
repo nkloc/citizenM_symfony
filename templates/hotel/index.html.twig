@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hotel index{% endblock %}
+
+{% block body %}
+    <h1>Hôtels index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Adress</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hotel in hotels %}
+            <tr>
+                <td>{{ hotel.id }}</td>
+                <td>{{ hotel.name }}</td>
+                <td>{{ hotel.adress }}</td>
+                    <td>
+                    <a class="btn btn-primary white" href="{{ path('hotel_show', {'id': hotel.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-primary white" href="{{ path('hotel_edit', {'id': hotel.id}) }}">edit</a>
+                    {% endif %}
+                    </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary white" href="{{ path('hotel_new') }}">Create new</a>
+    <a class="btn btn-success white" href="{{ path('search_hotel') }}">Recherche avancée d'hôtels</a>
+{% endblock %}
