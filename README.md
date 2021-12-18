@@ -18,7 +18,7 @@ DATABASE_URL="postgresql://postgres:password@db:5432/db?serverVersion=13&charset
 Se connecter : 
 
 Avec un compte ADMIN: 
-id: postgres@gmail.com
+id: admin@gmail.com
 pw: password
 
 Avec un compte USER:
