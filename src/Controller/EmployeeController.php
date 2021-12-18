@@ -16,6 +16,7 @@ class EmployeeController extends AbstractController
     #[Route('/', name: 'employee_index', methods: ['GET'])]
     public function index(EmployeeRepository $employeeRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('employee/index.html.twig', [
             'employees' => $employeeRepository->findAll(),
         ]);
@@ -24,6 +25,7 @@ class EmployeeController extends AbstractController
     #[Route('/new', name: 'employee_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class EmployeeController extends AbstractController
     #[Route('/{id}', name: 'employee_show', methods: ['GET'])]
     public function show(Employee $employee): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('employee/show.html.twig', [
             'employee' => $employee,
         ]);

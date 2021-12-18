@@ -19,12 +19,21 @@
                 <th>Price</th>
                 <td>{{ food.price }}</td>
             </tr>
+            <tr>
+                <th>Hôtels</th>
+                <td>
+                    {% for hotel in food.hotels %}
+                        <span class="badge bg-danger p-2" data-badge-caption="">{{ hotel.name }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+
         </tbody>
     </table>
 
     <a class="btn btn-primary white" href="{{ path('food_index') }}">back to list</a>
-
-    <a class="btn btn-primary white" href="{{ path('food_edit', {'id': food.id}) }}">edit</a>
-
-    {{ include('food/_delete_form.html.twig') }}
+   {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-primary white" href="{{ path('food_edit', {'id': food.id}) }}">edit</a>
+        {{ include('food/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

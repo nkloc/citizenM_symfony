@@ -32,11 +32,11 @@ class Food
     /**
      * @ORM\ManyToMany(targetEntity=Hotel::class, inversedBy="food")
      */
-    private $Hotels;
+    private $hotels;
 
     public function __construct()
     {
-        $this->Hotels = new ArrayCollection();
+        $this->hotels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,13 +73,13 @@ class Food
      */
     public function getHotels(): Collection
     {
-        return $this->Hotels;
+        return $this->hotels;
     }
 
     public function addHotel(Hotel $hotel): self
     {
-        if (!$this->Hotels->contains($hotel)) {
-            $this->Hotels[] = $hotel;
+        if (!$this->hotels->contains($hotel)) {
+            $this->hotels[] = $hotel;
         }
 
         return $this;
@@ -87,7 +87,7 @@ class Food
 
     public function removeHotel(Hotel $hotel): self
     {
-        $this->Hotels->removeElement($hotel);
+        $this->hotels->removeElement($hotel);
 
         return $this;
     }

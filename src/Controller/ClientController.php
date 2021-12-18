@@ -16,6 +16,7 @@ class ClientController extends AbstractController
     #[Route('/', name: 'client_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findAll(),
         ]);
@@ -24,6 +25,7 @@ class ClientController extends AbstractController
     #[Route('/new', name: 'client_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
@@ -45,6 +47,7 @@ class ClientController extends AbstractController
     #[Route('/{id}', name: 'client_show', methods: ['GET'])]
     public function show(Client $client): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('client/show.html.twig', [
             'client' => $client,
         ]);

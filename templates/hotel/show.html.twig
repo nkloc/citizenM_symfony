@@ -20,6 +20,17 @@
                 <td>{{ hotel.adress }}</td>
             </tr>
             <tr>
+                <th>Destination</th>
+                <td>
+                    {% if hotel.destination %}
+                        <a href="{{ path('destination_show', { 'id': hotel.destination.id }) }}">
+                            <span class="badge bg-dark p-2" data-badge-caption="">{{ hotel.destination.location }}</span>
+                        </a>
+                    {% else %}
+                        <em>NOT FILLED</em>
+                    {% endif %}
+                </td>
+            <tr>
                 <th>Foods</th>
                 <td>
                     {% for food in hotel.food %}
@@ -35,13 +46,20 @@
                     {% endfor %}
                 </td>
             </tr>
-
+            <tr>
+                <th>Employees</th>
+                <td>
+                    {% for employee in hotel.employees %}
+                        <span class="badge bg-danger p-2" data-badge-caption="">{{ employee.firstname }} {{ employee.lastname}}</span>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
     <a class="btn btn-primary white"  href="{{ path('hotel_index') }}">back to list</a>
-
-    <a class="btn btn-primary white" href="{{ path('hotel_edit', {'id': hotel.id}) }}">edit</a>
-
-    {{ include('hotel/_delete_form.html.twig') }}
+   {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-primary white" href="{{ path('hotel_edit', {'id': hotel.id}) }}">edit</a>
+        {{ include('hotel/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
