@@ -24,3 +24,6 @@ pw: password
 Avec un compte USER:
 id: user@gmail.com
 pw: user
+
+Schéma BDD
+![schéma BDD](https://user-images.githubusercontent.com/56578888/146656854-48deba51-3e9c-4f03-aeb9-29b9cd00fd1e.png)
